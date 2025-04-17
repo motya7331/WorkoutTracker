@@ -13,17 +13,16 @@ namespace WorkoutTracker.Models
         public DbSet<ChallengeSchedule> ChallengeSchedules { get; set; }
         public DbSet<DailyRecord> DailyRecords { get; set; }
         public DbSet<ChallengeRecord> ChallengeRecords { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=C:\\Users\\chech\\source\\repos\\WorkoutTracker\\WorkoutTracker\\workouts.db");
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public void EnsureDatabaseCreated()
         {
-            modelBuilder.Entity<Instructor>()
-                .HasMany(i => i.Groups)
-                .WithMany(g => g.Instructors);
+            Database.EnsureCreated(); 
         }
     }
 }
